@@ -1,9 +1,10 @@
 # my-kratos-blog
 
-使用
+使用kratos proto client path/filename.proto
+生成pb,grpc,http文件,会自动在proto文件同级目录下生成
 
 ```shell
-kratos proto client api/blog/blog.proto
+PS P:\Projects\GoLand\my-kratos-blog> kratos proto client api/photo/photo.proto
+proto: api/photo/photo.proto
 ```
 
-生成pb,grpc,http文件,会自动在proto文件同级目录下生成

@@ -3,19 +3,19 @@
 
 openapi: 3.0.3
 info:
-    title: User API
+    title: Photo API
     version: 0.0.1
 paths:
-    /api/admin:
+    /api/addPhoto:
         post:
             tags:
-                - User
-            operationId: User_AdminLogin
+                - Photo
+            operationId: Photo_CreatePhoto
             requestBody:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/AdminLoginRequest'
+                            $ref: '#/components/schemas/CreatePhotoRequest'
                 required: true
             responses:
                 "200":
@@ -23,163 +23,49 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/AdminLoginReply'
+                                $ref: '#/components/schemas/CreatePhotoReply'
                 default:
                     description: Default error response
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Status'
-    /api/getUserMessage/{name}:
+    /api/deletePhoto/{id}:
+        delete:
+            tags:
+                - Photo
+            operationId: Photo_DeletePhoto
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DeletePhotoReply'
+                default:
+                    description: Default error response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Status'
+    /api/getAllPhoto:
         get:
             tags:
-                - User
-            operationId: User_GetUser
-            parameters:
-                - name: name
-                  in: path
-                  required: true
-                  schema:
-                    type: string
+                - Photo
+            operationId: Photo_ListPhoto
             responses:
                 "200":
                     description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/GetUserReply'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-    /api/login:
-        post:
-            tags:
-                - User
-            operationId: User_LoginUser
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/LoginRequest'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/LoginReply'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-    /api/register/{code}:
-        post:
-            tags:
-                - User
-            operationId: User_CreateUser
-            parameters:
-                - name: code
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/CreateUserRequest'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/CreateUserReply'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-    /api/sendEmail/{email}:
-        get:
-            tags:
-                - User
-            operationId: User_SendEmail
-            parameters:
-                - name: email
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/SendEmailReply'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-    /api/setBlack/{name}:
-        get:
-            tags:
-                - User
-            operationId: User_SetBlack
-            parameters:
-                - name: name
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/SetBlackReply'
-                default:
-                    description: Default error response
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/Status'
-    /api/updatePassword/{code}:
-        post:
-            tags:
-                - User
-            operationId: User_UpdatePassword
-            parameters:
-                - name: code
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/UpdatePasswordRequest'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/UpdatePasswordReply'
+                                $ref: '#/components/schemas/ListPhotoReply'
                 default:
                     description: Default error response
                     content:
@@ -188,22 +74,6 @@ paths:
                                 $ref: '#/components/schemas/Status'
 components:
     schemas:
-        AdminLoginReply:
-            type: object
-            properties:
-                common:
-                    $ref: '#/components/schemas/CommonReply'
-                data:
-                    type: array
-                    items:
-                        type: string
-        AdminLoginRequest:
-            type: object
-            properties:
-                name:
-                    type: string
-                password:
-                    type: string
         CommonReply:
             type: object
             properties:
@@ -211,31 +81,21 @@ components:
                     type: string
                 result:
                     type: string
-        CreateUserReply:
+        CreatePhotoReply:
             type: object
             properties:
                 common:
                     $ref: '#/components/schemas/CommonReply'
-        CreateUserRequest:
+        CreatePhotoRequest:
             type: object
             properties:
-                name:
-                    type: string
-                email:
-                    type: string
-                password:
-                    type: string
-                code:
-                    type: string
-        GetUserReply:
-            type: object
-            properties:
-                common:
-                    $ref: '#/components/schemas/CommonReply'
                 data:
-                    type: array
-                    items:
-                        type: string
+                    $ref: '#/components/schemas/PhotoData'
+        DeletePhotoReply:
+            type: object
+            properties:
+                common:
+                    $ref: '#/components/schemas/CommonReply'
         GoogleProtobufAny:
             type: object
             properties:
@@ -244,7 +104,7 @@ components:
                     description: The type of the serialized message.
             additionalProperties: true
             description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
-        LoginReply:
+        ListPhotoReply:
             type: object
             properties:
                 common:
@@ -252,24 +112,20 @@ components:
                 data:
                     type: array
                     items:
-                        type: string
-        LoginRequest:
+                        $ref: '#/components/schemas/PhotoData'
+        PhotoData:
             type: object
             properties:
-                name:
+                id:
                     type: string
-                pass:
+                photo:
                     type: string
-        SendEmailReply:
-            type: object
-            properties:
-                common:
-                    $ref: '#/components/schemas/CommonReply'
-        SetBlackReply:
-            type: object
-            properties:
-                common:
-                    $ref: '#/components/schemas/CommonReply'
+                date:
+                    type: string
+                title:
+                    type: string
+                position:
+                    type: string
         Status:
             type: object
             properties:
@@ -286,21 +142,5 @@ components:
                         $ref: '#/components/schemas/GoogleProtobufAny'
                     description: A list of messages that carry the error details.  There is a common set of message types for APIs to use.
             description: 'The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). Each `Status` message contains three pieces of data: error code, error message, and error details. You can find out more about this error model and how to work with it in the [API Design Guide](https://cloud.google.com/apis/design/errors).'
-        UpdatePasswordReply:
-            type: object
-            properties:
-                common:
-                    $ref: '#/components/schemas/CommonReply'
-        UpdatePasswordRequest:
-            type: object
-            properties:
-                code:
-                    type: string
-                email:
-                    type: string
-                name:
-                    type: string
-                password:
-                    type: string
 tags:
-    - name: User
+    - name: Photo
