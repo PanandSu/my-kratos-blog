@@ -1,3 +1,25 @@
 syntax = "proto3";
 
-package template;
+package api;
+import "google/api/annotations.proto";
+import "api/tag/tag.proto";
+option go_package = "";
+
+service TagService {
+  rpc CreateTag (CreateTagRequest) returns (CreateTagReply) {
+    option (google.api.http) = {
+      post: "/api/addTag",
+      body:"*",
+    };
+  };
+  rpc DeleteTag (DeleteTagRequest) returns (DeleteTagReply) {
+    option (google.api.http) = {
+      delete: "/api/deleteTag/{id}",
+    };
+  };
+  rpc ListTag (ListTagRequest) returns (ListTagReply) {
+    option(google.api.http) = {
+      get:"/api/getAllTag",
+    };
+  };
+}

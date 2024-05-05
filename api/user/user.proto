@@ -1,3 +1,114 @@
 syntax = "proto3";
 
-package template;
+package api;
+import "google/api/annotations.proto";
+option go_package = "/api;";
+
+service User {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {
+    option (google.api.http) = {
+      post:"/api/register/{code}",
+      body:"*",
+    };
+  };
+  rpc LoginUser (LoginRequest) returns (LoginReply) {
+    option (google.api.http) = {
+      post:"/api/login",
+      body:"*",
+    };
+  };
+  rpc SendEmail (SendEmailRequest) returns (SendEmailReply) {
+    option (google.api.http) = {
+      get:"/api/sendEmail/{email}"
+    };
+  };
+  rpc UpdatePassword (UpdatePasswordRequest) returns (UpdatePasswordReply) {
+    option (google.api.http) = {
+      post:"/api/updatePassword/{code}",
+      body:"*",
+    };
+  };
+  rpc SetBlack (SetBlackRequest) returns (SetBlackReply) {
+    option (google.api.http) = {
+      get:"/api/setBlack/{name}"
+    };
+  };
+  rpc GetUser (GetUserRequest) returns (GetUserReply) {
+    option (google.api.http) = {
+      get:"/api/getUserMessage/{name}"
+    };
+  };
+  rpc AdminLogin (AdminLoginRequest) returns (AdminLoginReply) {
+    option (google.api.http) = {
+      post:"/api/admin",
+      body:"*",
+    };
+  };
+}
+
+message CommonReply {
+  int64 code = 1;
+  string result = 2;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  string code = 4;
+}
+message CreateUserReply {
+  CommonReply common = 1;
+}
+
+message LoginRequest {
+  string name = 1;
+  string pass = 2;
+}
+message LoginReply {
+  CommonReply common = 1;
+  repeated string data = 2;
+}
+
+message SendEmailRequest {
+  string email = 1;
+}
+message SendEmailReply {
+  CommonReply common = 1;
+}
+
+message UpdatePasswordRequest {
+  string code = 1;
+  string email = 2;
+  string name = 3;
+  string password = 4;
+}
+message UpdatePasswordReply {
+  CommonReply common = 1;
+}
+
+message SetBlackRequest {
+  string name = 1;
+}
+message SetBlackReply {
+  CommonReply common = 1;
+}
+
+message GetUserRequest {
+  string name = 1;
+}
+message GetUserReply {
+  CommonReply common = 1;
+  repeated string data = 2;
+}
+
+message AdminLoginRequest {
+  string name = 1;
+  string password = 2;
+}
+message AdminLoginReply {
+  CommonReply common = 1;
+  repeated string data = 2;
+}
+
+

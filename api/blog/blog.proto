@@ -1,3 +1,230 @@
 syntax = "proto3";
 
-package template;
+package api;
+import "google/api/annotations.proto";
+option go_package = "api/;";
+
+service Blog {
+  rpc CreateBlog (CreateBlogRequest) returns (CreateBlogReply) {
+    option (google.api.http) = {
+      post: "/api/addBlog",
+      body:"*",
+    };
+  };
+  rpc UpdateBlog (UpdateBlogRequest) returns (UpdateBlogReply) {
+    option (google.api.http) = {
+      put: "/api/updateBlog/{id}",
+      body:"*",
+    };
+  };
+  rpc UpdateIndividualFields (UpdateIndividualFieldsRequest) returns (UpdateIndividualFieldsReply) {
+    option (google.api.http) = {
+      put: "/api/updateIndividual",
+      body:"*",
+    };
+  };
+  rpc DeleteBlog (DeleteBlogRequest) returns (DeleteBlogReply) {
+    option(google.api.http) = {
+      delete:"/api/deleteBlog/{id}",
+    };
+  };
+  rpc GetBlogByTag (GetBlogRequest) returns (GetBlogReply) {
+    option(google.api.http) = {
+      get:"/api/getTagName/{tag}",
+    };
+  };
+  rpc ListBlog (ListBlogRequest) returns (ListBlogReply) {
+    option(google.api.http) = {
+      get:"/api/getAllBlog",
+    };
+  };
+  rpc GetBlogByID (GetBlogIDRequest) returns (GetBlogIDReply) {
+    option(google.api.http) = {
+      get:"/api/getId/{id}",
+    };
+  };
+  rpc GetBlogByTitle (GetBlogByTitleRequest) returns (GetBlogByTitleReply) {
+    option(google.api.http) = {
+      get:"/api/searchBlog/{title}",
+    };
+  };
+
+  rpc UpdateOnly(UpdateOnlyRequest) returns (UpdateOnlyReply) {
+    option (google.api.http) = {
+      put:"/api/updateOnly",
+      body:"*",
+    };
+  }
+
+  rpc CacheBlog(CreateBlogRequest) returns (CreateBlogReply) {
+    option (google.api.http) = {
+      post:"/api/cacheBlog",
+      body:"*",
+    };
+  }
+
+  rpc GetCacheBlog(ListBlogRequest) returns (ListCacheReply) {
+    option (google.api.http) = {
+      get:"/api/getCacheBlog"
+    };
+  }
+
+  rpc DeleteCacheBlog(DeleteCacheBlogRequest) returns(DeleteCacheBlogReply) {
+    option (google.api.http) = {
+      delete:"/api/deleteCacheBlog/{key}",
+    };
+  }
+
+  rpc AddSuggestBlog(SuggestBlogRequest) returns(SuggestBlogReply) {
+    option (google.api.http) = {
+      post:"/api/addSuggest",
+      body:"*"
+    };
+  }
+
+  rpc DeleteSuggestBlog(SuggestBlogRequest) returns(SuggestBlogReply) {
+    option (google.api.http) = {
+      delete:"/api/deleteSuggest/{id}",
+    };
+  }
+
+  rpc GetAllSuggest(SearchAllSuggest) returns(SearchAllReply) {
+    option (google.api.http) = {
+      get:"/api/getAllSuggest",
+    };
+  }
+
+  rpc UpdateBlogVisit(UpdateBlogVisitRq) returns (UpdateBlogVisitRq) {}
+  rpc GetCommentPower(GetCommentPowerRq) returns(GetCommentPowerReply) {}
+}
+
+message BlogData {
+  optional uint32 id = 1;
+  optional string title = 2;
+  optional string preface = 3;
+  optional string photo = 4;
+  optional string tag = 5;
+  optional string createTime = 6;
+  optional string updateTime = 7;
+  optional uint64 visits = 8;
+  optional string content = 9;
+  optional bool appear = 10;
+  optional bool comment = 11;
+}
+
+message CommonReply {
+  int64 code = 1;
+  string result = 2;
+}
+
+message CreateBlogRequest {
+  BlogData data = 1;
+}
+message CreateBlogReply {
+  CommonReply common = 1;
+}
+
+message UpdateBlogRequest {
+  uint32 id = 1;
+  BlogData data = 2;
+}
+message UpdateBlogReply {
+  CommonReply common = 1;
+}
+
+message UpdateIndividualFieldsRequest {
+  int64 raw = 1;
+  bool status = 2;
+}
+message UpdateIndividualFieldsReply {
+  CommonReply common = 1;
+}
+
+message DeleteBlogRequest {
+  int64 id = 1;
+}
+message DeleteBlogReply {
+  CommonReply common = 1;
+}
+
+message GetBlogRequest {
+  string tag = 1;
+  optional Permission permission = 2;
+}
+message GetBlogReply {
+  CommonReply common = 1;
+  repeated BlogData List = 2;
+}
+
+message ListBlogRequest {
+  optional Permission permission = 1;
+}
+message ListBlogReply {
+  CommonReply common = 1;
+  repeated BlogData List = 2;
+}
+
+message ListCacheReply {
+  CommonReply common = 1;
+  repeated BlogData List = 2;
+}
+
+message GetBlogByTitleRequest {
+  string title = 1;
+}
+message GetBlogByTitleReply {
+  CommonReply common = 1;
+  repeated BlogData data = 2;
+}
+
+message UpdateOnlyRequest {
+  int64 raw = 1;
+  int64 id = 2;
+  bool res = 3;
+}
+message UpdateOnlyReply {
+  CommonReply common = 1;
+}
+
+message GetBlogIDRequest {
+  int64 id = 1;
+  optional Permission permission = 2;
+}
+message GetBlogIDReply {
+  CommonReply common = 1;
+  BlogData data = 2;
+}
+
+message DeleteCacheBlogRequest {
+  int64 key = 1;
+}
+message DeleteCacheBlogReply {
+  CommonReply common = 1;
+}
+
+message SuggestBlogRequest {
+  int64 id = 1;
+}
+message SuggestBlogReply {
+  CommonReply common = 1;
+}
+
+message SearchAllSuggest {}
+message SearchAllReply {
+  CommonReply common = 1;
+  repeated BlogData List = 2;
+}
+
+message Permission {
+  bool Admin = 1;
+}
+
+message UpdateBlogVisitRq {}
+
+message GetCommentPowerRq {
+  string path = 1;
+}
+message GetCommentPowerReply {
+  bool allow = 1;
+}
+

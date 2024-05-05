@@ -1,3 +1,32 @@
 syntax = "proto3";
 
-package template;
+package api;
+import "google/api/annotations.proto";
+option go_package = "";
+
+service Gateway {
+  rpc GetBingPhoto(GetBingPhotoRequest) returns(GetBingPhotoReply) {
+    option (google.api.http) = {
+      get:'/api/getBingPhoto'
+    };
+  }
+  rpc UploadReq(UploadRequest) returns(UploadReply) {
+    option (google.api.http) = {
+      post:"/api/upload",
+    };
+  }
+}
+
+message GetBingPhotoRequest  {}
+message GetBingPhotoReply {
+  int64 code = 1;
+  string result = 2;
+  string data = 3;
+}
+
+message UploadRequest {}
+message UploadReply {
+  int64 code = 1;
+  string result = 2;
+  string data = 3;
+}

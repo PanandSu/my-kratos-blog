@@ -1,3 +1,26 @@
 syntax = "proto3";
 
-package template;
+package api;
+import "google/api/annotations.proto";
+import "api/comment/comment.proto";
+option go_package = "";
+
+service CommentService {
+  rpc AddComment (CreateCommentRequest) returns (CreateCommentReply) {
+    option (google.api.http) = {
+      post:"/api/addComment",
+      body:"*"
+    };
+  };
+  rpc AddReward (CreateRewardRequest) returns (CreateRewardReply) {
+    option (google.api.http) = {
+      post:"/api/addReward",
+      body:"*"
+    };
+  };
+  rpc ExtractParentComments(ExtractParentCommentsRequest) returns (ExtractParentCommentsReply) {
+    option (google.api.http) = {
+      get:"/api/getComment/{id}"
+    };
+  };
+}

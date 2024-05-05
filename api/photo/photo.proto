@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package api;
+import "google/api/annotations.proto";
+option go_package = "/api;";
+
+service Photo {
+  rpc CreatePhoto (CreatePhotoRequest) returns (CreatePhotoReply) {
+    option (google.api.http) = {
+      post:"/api/addPhoto",
+      body:"*"
+    };
+  };
+  rpc DeletePhoto (DeletePhotoRequest) returns (DeletePhotoReply) {
+    option (google.api.http) = {
+      delete:'/api/deletePhoto/{id}'
+    };
+  };
+  rpc ListPhoto (ListPhotoRequest) returns (ListPhotoReply) {
+    option (google.api.http) = {
+      get:'/api/getAllPhoto'
+    };
+  };
+}
+
+message CommonReply {
+  int64 code = 1;
+  string result = 2;
+}
+
+message PhotoData {
+  int64 id = 1;
+  string photo = 2;
+  string date = 3;
+  string title = 4;
+  string position = 5;
+}
+message CreatePhotoRequest {
+  PhotoData data = 1;
+}
+message CreatePhotoReply {
+  CommonReply common = 1;
+}
+
+message DeletePhotoRequest {
+  int64 id = 1;
+}
+message DeletePhotoReply {
+  CommonReply common = 1;
+}
+
+message ListPhotoRequest {}
+message ListPhotoReply {
+  CommonReply common = 1;
+  repeated PhotoData data = 2;
+}

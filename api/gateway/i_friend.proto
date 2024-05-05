@@ -1,3 +1,36 @@
 syntax = "proto3";
 
-package template;
+package api;
+import "google/api/annotations.proto";
+import "api/friend/friend.proto";
+option go_package = "";
+
+service FriendService {
+  rpc CreateFriend (CreateFriendRequest) returns (CreateFriendReply) {
+    option (google.api.http) = {
+      post:'/api/addFriend',
+      body:"*",
+    };
+  };
+  rpc UpdateFriend (UpdateFriendRequest) returns (UpdateFriendReply) {
+    option (google.api.http) = {
+      put:'/api/updateFriend',
+      body:"*"
+    };
+  };
+  rpc DeleteFriend (DeleteFriendRequest) returns (DeleteFriendReply) {
+    option (google.api.http) = {
+      delete:'/api/deleteFriend/{id}'
+    };
+  };
+  rpc GetFriend (GetFriendRequest) returns (GetFriendReply) {
+    option (google.api.http) = {
+      get:"/api/getFriend/{id}"
+    };
+  };
+  rpc ListFriend (ListFriendRequest) returns (ListFriendReply) {
+    option (google.api.http) = {
+      get:'/api/getAllFriend'
+    };
+  };
+}

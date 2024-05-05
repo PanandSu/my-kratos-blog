@@ -1,3 +1,98 @@
 syntax = "proto3";
 
-package template;
+package api;
+import "api/blog/blog.proto";
+import "google/api/annotations.proto";
+option go_package = "";
+
+service BlogService {
+  rpc CreateBlog(CreateBlogRequest) returns (CreateBlogReply) {
+    option (google.api.http) = {
+      post: "/api/addBlog",
+      body:"*",
+    };
+  };
+  rpc UpdateBlog(UpdateBlogRequest) returns (UpdateBlogReply) {
+    option (google.api.http) = {
+      put: "/api/updateBlog/{id}",
+      body:"*",
+    };
+  };
+  rpc UpdateIndividualFields (UpdateIndividualFieldsRequest) returns (UpdateIndividualFieldsReply) {
+    option (google.api.http) = {
+      put: "/api/updateIndividual",
+      body:"*",
+    };
+  };
+  rpc DeleteBlog (DeleteBlogRequest) returns (DeleteBlogReply) {
+    option(google.api.http) = {
+      delete:"/api/deleteBlog/{id}",
+    };
+  };
+  rpc GetBlogByTag (GetBlogRequest) returns (GetBlogReply) {
+    option(google.api.http) = {
+      get:"/api/getTagName/{tag}",
+    };
+  };
+  rpc ListBlog (ListBlogRequest) returns (ListBlogReply) {
+    option(google.api.http) = {
+      get:"/api/getAllBlog",
+    };
+  };
+  rpc GetBlogByID (GetBlogIDRequest) returns (GetBlogIDReply) {
+    option(google.api.http) = {
+      get:"/api/getId/{id}",
+    };
+  };
+  rpc GetBlogByTitle (GetBlogByTitleRequest) returns (GetBlogByTitleReply) {
+    option(google.api.http) = {
+      get:"/api/searchBlog/{title}",
+    };
+  };
+
+  rpc UpdateOnly(UpdateOnlyRequest) returns (UpdateOnlyReply) {
+    option (google.api.http) = {
+      put:"/api/updateOnly",
+      body:"*",
+    };
+  }
+
+  rpc CacheBlog(CreateBlogRequest) returns (CreateBlogReply) {
+    option (google.api.http) = {
+      post:"/api/cacheBlog",
+      body:"*",
+    };
+  }
+
+  rpc GetCacheBlog(ListBlogRequest) returns (ListCacheReply) {
+    option (google.api.http) = {
+      get:"/api/getCacheBlog"
+    };
+  }
+
+  rpc DeleteCacheBlog(DeleteCacheBlogRequest) returns(DeleteCacheBlogReply) {
+    option (google.api.http) = {
+      delete:"/api/deleteCacheBlog/{key}",
+    };
+  }
+
+  rpc AddSuggestBlog(SuggestBlogRequest) returns(SuggestBlogReply) {
+    option (google.api.http) = {
+      post:"/api/addSuggest",
+      body:"*"
+    };
+  }
+
+  rpc DeleteSuggestBlog(SuggestBlogRequest) returns(SuggestBlogReply) {
+    option (google.api.http) = {
+      delete:"/api/deleteSuggest/{id}",
+    };
+  }
+
+  rpc GetAllSuggest(SearchAllSuggest) returns(SearchAllReply) {
+    option (google.api.http) = {
+      get:"/api/getAllSuggest",
+    };
+  }
+}
+
