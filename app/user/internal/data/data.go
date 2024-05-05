@@ -1,7 +1,7 @@
 package data
 
 import (
-	"user/internal/conf"
+	"my-kratos-blog/app/user/internal/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"

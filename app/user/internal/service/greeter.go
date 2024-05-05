@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
+	"my-kratos-blog/app/user/internal/biz"
 	v1 "user/api/helloworld/v1"
-	"user/internal/biz"
 )
 
 // GreeterService is a greeter service.

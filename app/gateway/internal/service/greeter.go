@@ -4,7 +4,7 @@ import (
 	"context"
 
 	v1 "gateway/api/helloworld/v1"
-	"gateway/internal/biz"
+	"my-kratos-blog/app/gateway/internal/biz"
 )
 
 // GreeterService is a greeter service.

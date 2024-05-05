@@ -7,11 +7,11 @@
 package main
 
 import (
-	"user/internal/biz"
-	"user/internal/conf"
-	"user/internal/data"
-	"user/internal/server"
-	"user/internal/service"
+	"my-kratos-blog/app/user/internal/biz"
+	"my-kratos-blog/app/user/internal/conf"
+	"my-kratos-blog/app/user/internal/data"
+	"my-kratos-blog/app/user/internal/server"
+	"my-kratos-blog/app/user/internal/service"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"

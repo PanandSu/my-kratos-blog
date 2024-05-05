@@ -2,8 +2,8 @@ package server
 
 import (
 	v1 "comment/api/helloworld/v1"
-	"comment/internal/conf"
-	"comment/internal/service"
+	"my-kratos-blog/app/comment/internal/conf"
+	"my-kratos-blog/app/comment/internal/service"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
