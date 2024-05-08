@@ -8,3 +8,4 @@ PS P:\Projects\GoLand\my-kratos-blog> kratos proto client api/photo/photo.proto
 proto: api/photo/photo.proto
 ```
 
+新的修改,使用PanandSu账号.

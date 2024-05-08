@@ -2,12 +2,14 @@ package service
 
 import (
 	"context"
+	"my-kratos-blog/app/blog/internal/biz"
 
 	pb "my-kratos-blog/api/blog"
 )
 
 type BlogService struct {
 	pb.UnimplementedBlogServer
+	uc *biz.BlogUseCase
 }
 
 func NewBlogService() *BlogService {
@@ -15,37 +17,37 @@ func NewBlogService() *BlogService {
 }
 
 func (s *BlogService) CreateBlog(ctx context.Context, req *pb.CreateBlogRequest) (*pb.CreateBlogReply, error) {
-	return &pb.CreateBlogReply{}, nil
+	return s.uc.CreateBlog(ctx, req), nil
 }
 func (s *BlogService) UpdateBlog(ctx context.Context, req *pb.UpdateBlogRequest) (*pb.UpdateBlogReply, error) {
-	return &pb.UpdateBlogReply{}, nil
+	return s.uc.UpdateBlog(ctx, req), nil
 }
 func (s *BlogService) UpdateIndividualFields(ctx context.Context, req *pb.UpdateIndividualFieldsRequest) (*pb.UpdateIndividualFieldsReply, error) {
-	return &pb.UpdateIndividualFieldsReply{}, nil
+	return s.uc.UpdateIndividualFields(ctx, req), nil
 }
 func (s *BlogService) DeleteBlog(ctx context.Context, req *pb.DeleteBlogRequest) (*pb.DeleteBlogReply, error) {
-	return &pb.DeleteBlogReply{}, nil
+	return s.uc.DeleteBlog(ctx, req), nil
 }
 func (s *BlogService) GetBlogByTag(ctx context.Context, req *pb.GetBlogRequest) (*pb.GetBlogReply, error) {
-	return &pb.GetBlogReply{}, nil
+	return s.uc.GetBlogByTag(ctx, req), nil
 }
 func (s *BlogService) ListBlog(ctx context.Context, req *pb.ListBlogRequest) (*pb.ListBlogReply, error) {
-	return &pb.ListBlogReply{}, nil
+	return s.uc.ListBlog(ctx, req), nil
 }
 func (s *BlogService) GetBlogByID(ctx context.Context, req *pb.GetBlogIDRequest) (*pb.GetBlogIDReply, error) {
-	return &pb.GetBlogIDReply{}, nil
+	return s.uc.GetBlogByID(ctx, req), nil
 }
 func (s *BlogService) GetBlogByTitle(ctx context.Context, req *pb.GetBlogByTitleRequest) (*pb.GetBlogByTitleReply, error) {
-	return &pb.GetBlogByTitleReply{}, nil
+	return s.uc.GetBlogByTitle(ctx, req), nil
 }
 func (s *BlogService) UpdateOnly(ctx context.Context, req *pb.UpdateOnlyRequest) (*pb.UpdateOnlyReply, error) {
-	return &pb.UpdateOnlyReply{}, nil
+	return s.uc.UpdateOnly(ctx, req), nil
 }
 func (s *BlogService) CacheBlog(ctx context.Context, req *pb.CreateBlogRequest) (*pb.CreateBlogReply, error) {
-	return &pb.CreateBlogReply{}, nil
+	return s.uc.CacheBlog(ctx, req), nil
 }
 func (s *BlogService) GetCacheBlog(ctx context.Context, req *pb.ListBlogRequest) (*pb.ListCacheReply, error) {
-	return &pb.ListCacheReply{}, nil
+	return s.uc.GetCacheBlog(ctx, req), nil
 }
 func (s *BlogService) DeleteCacheBlog(ctx context.Context, req *pb.DeleteCacheBlogRequest) (*pb.DeleteCacheBlogReply, error) {
 	return &pb.DeleteCacheBlogReply{}, nil
