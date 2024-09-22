@@ -1,6 +1,6 @@
 module my-kratos-blog
 
-go 1.22
+go 1.23.0
 
 require (
 	github.com/go-kratos/kratos/v2 v2.7.3
